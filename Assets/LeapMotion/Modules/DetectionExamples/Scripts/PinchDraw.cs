@@ -219,6 +219,7 @@ namespace Leap.Unity.DetectionExamples {
 
               cube.transform.position = GameObject.Find("RightIndex").transform.position;
               cube.transform.localScale = new Vector3(0.05F, 0.05F, 0.05F);
+              cube.GetComponent<Renderer>().material.SetColor("_Color", GameObject.Find("Picker").GetComponent<ColorPicker>().CurrentColor);
               zTab.Add(_line);
               _line++;
 
@@ -236,6 +237,7 @@ namespace Leap.Unity.DetectionExamples {
 
               sphere.transform.position = GameObject.Find("RightIndex").transform.position;
               sphere.transform.localScale = new Vector3(0.05F, 0.05F, 0.05F);
+              sphere.GetComponent<Renderer>().material.SetColor("_Color", GameObject.Find("Picker").GetComponent<ColorPicker>().CurrentColor);
               zTab.Add(_line);
               _line++;
             }
@@ -371,7 +373,7 @@ namespace Leap.Unity.DetectionExamples {
         }
       }
     }
-
+    
     private class DrawState {
       
       private List<Vector3> _vertices = new List<Vector3>();
@@ -394,7 +396,6 @@ namespace Leap.Unity.DetectionExamples {
 
       public DrawState(PinchDraw parent) {
         
-
         _parent = parent;
         _smoothedPosition = new SmoothedVector3();
         _smoothedPosition.delay = parent._smoothingDelay;
@@ -417,17 +418,13 @@ namespace Leap.Unity.DetectionExamples {
         _mesh = new Mesh();
         _mesh.name = "Line Mesh";
         _mesh.MarkDynamic();
-
         
         lineObj.transform.position = Vector3.zero;
         lineObj.transform.rotation = Quaternion.identity;
         lineObj.transform.localScale = Vector3.one;
         lineObj.AddComponent<MeshFilter>().mesh = _mesh;
         lineObj.AddComponent<MeshRenderer>().sharedMaterial = _parent._material;
-        
-
-
-
+     
         return lineObj;
       }
 
@@ -525,12 +522,8 @@ namespace Leap.Unity.DetectionExamples {
         _prevNormal0 = ringNormal;
 
         //COLOR//
-        //if (GameObject.Find("Picker").activeSelf == true)
           _parent.DrawColor = GameObject.Find("Picker").GetComponent<ColorPicker>().CurrentColor;
-        //else
-        //{
-         // _parent.DrawColor = Color.green;
-        //}
+
       }
 
       private void addVertexRing() {

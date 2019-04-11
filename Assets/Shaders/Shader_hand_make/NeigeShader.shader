@@ -42,8 +42,6 @@
 			o.Albedo = c.rgb;
 			}
 
-
-
 			//o.Alpha = c.a;
 		}
 		ENDCG

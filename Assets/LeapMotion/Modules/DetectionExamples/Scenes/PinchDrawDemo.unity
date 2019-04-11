@@ -27840,7 +27840,7 @@ MonoBehaviour:
   _pinchDetectors:
   - {fileID: 1686091046}
   - {fileID: 188161270}
-  _material: {fileID: 2100000, guid: fb63cfc93595449b8b8a6d75e0cada95, type: 2}
+  _material: {fileID: 2100000, guid: 92fc4207f5a84b14fa5c7d11c4863b21, type: 2}
   _drawColor: {r: 1, g: 1, b: 1, a: 1}
   _smoothingDelay: 0.01
   _drawRadius: 0.002

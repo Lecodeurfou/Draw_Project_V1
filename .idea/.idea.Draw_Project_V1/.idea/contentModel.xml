@@ -691,6 +691,7 @@
             <e p="HoloSurfShad.shader" t="Include" />
             <e p="NeigeShader.shader" t="Include" />
             <e p="oil_painting.shader" t="Include" />
+            <e p="RemanentPostEffect.shader" t="Include" />
             <e p="SobelShader.shader" t="Include" />
             <e p="Standard_Hand_Make.shader" t="Include" />
           </e>
