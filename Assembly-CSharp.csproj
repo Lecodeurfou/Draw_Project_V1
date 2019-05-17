@@ -402,6 +402,7 @@
     <Compile Include="Assets\LeapMotion\Modules\DetectionExamples\Scripts\MengerSponge.cs" />
     <Compile Include="Assets\LeapMotion\Modules\DetectionExamples\Scripts\PinchDraw.cs" />
     <Compile Include="Assets\LeapMotion\Modules\DetectionExamples\Scripts\SpawnBalls.cs" />
+    <Compile Include="Assets\personamove.cs" />
     <Compile Include="Assets\reset.cs" />
     <Compile Include="Assets\Scripts\ColorHuePicker.cs" />
     <Compile Include="Assets\Scripts\ColorIndicator.cs" />

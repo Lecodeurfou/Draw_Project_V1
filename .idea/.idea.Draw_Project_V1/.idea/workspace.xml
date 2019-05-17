@@ -2,39 +2,23 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f9df24b2-51b1-4921-96a1-abfcf77ca59c" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Draw_Project_V1/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Draw_Project_V1/.idea/contentModel.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Draw_Project_V1/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Draw_Project_V1/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assembly-CSharp.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Assembly-CSharp.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LeapMotion/Modules/DetectionExamples/Materials/GreenShiny.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LeapMotion/Modules/DetectionExamples/Materials/GreenShiny.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LeapMotion/Modules/DetectionExamples/Materials/PinchLineMaterial.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LeapMotion/Modules/DetectionExamples/Materials/PinchLineMaterial.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LeapMotion/Modules/DetectionExamples/Scripts/Collision.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LeapMotion/Modules/DetectionExamples/Scripts/Collision.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/LeapMotion/Modules/DetectionExamples/Scripts/PinchDraw.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LeapMotion/Modules/DetectionExamples/Scripts/PinchDraw.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Materialshand/neon.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materialshand/neon.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Materialshand/neon.mat.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materialshand/neon.mat.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Shaders/Shader_hand_make/NeigeShader.shader" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Shaders/Shader_hand_make/NeigeShader.shader" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Library/CurrentLayout.dwlt" beforeDir="false" afterPath="$PROJECT_DIR$/Library/CurrentLayout.dwlt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/LeapMotion/Modules/DetectionExamples/Scenes/PinchDrawDemo.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/LeapMotion/Modules/DetectionExamples/Scenes/PinchDrawDemo.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Library/CurrentMaximizeLayout.dwlt" beforeDir="false" afterPath="$PROJECT_DIR$/Library/CurrentMaximizeLayout.dwlt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Library/EditorUserBuildSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Library/EditorUserBuildSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Library/InspectorExpandedItems.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Library/InspectorExpandedItems.asset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Library/ScriptAssemblies/Assembly-CSharp.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Library/ScriptAssemblies/Assembly-CSharp.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Library/ScriptAssemblies/Assembly-CSharp.dll.mdb" beforeDir="false" afterPath="$PROJECT_DIR$/Library/ScriptAssemblies/Assembly-CSharp.dll.mdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Library/ScriptMapper" beforeDir="false" afterPath="$PROJECT_DIR$/Library/ScriptMapper" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Library/ShaderCache.db" beforeDir="false" afterPath="$PROJECT_DIR$/Library/ShaderCache.db" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Library/StateCache/Hierarchy/a22b82-mainStage.json" beforeDir="false" afterPath="$PROJECT_DIR$/Library/StateCache/Hierarchy/a22b82-mainStage.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Library/StateCache/SceneView/8c98d0-mainStage.json" beforeDir="false" afterPath="$PROJECT_DIR$/Library/StateCache/SceneView/8c98d0-mainStage.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Library/assetDatabase3" beforeDir="false" afterPath="$PROJECT_DIR$/Library/assetDatabase3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Library/metadata/01/01e250876a76473498ed87fab098efd5" beforeDir="false" afterPath="$PROJECT_DIR$/Library/metadata/01/01e250876a76473498ed87fab098efd5" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Library/metadata/01/01e250876a76473498ed87fab098efd5.info" beforeDir="false" afterPath="$PROJECT_DIR$/Library/metadata/01/01e250876a76473498ed87fab098efd5.info" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Library/metadata/56/563518250a32f224095292cef87b4875" beforeDir="false" afterPath="$PROJECT_DIR$/Library/metadata/56/563518250a32f224095292cef87b4875" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Library/metadata/5c/5ce86ced6de26f149a47b3d4ccc3a58b" beforeDir="false" afterPath="$PROJECT_DIR$/Library/metadata/5c/5ce86ced6de26f149a47b3d4ccc3a58b" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Library/metadata/5c/5ce86ced6de26f149a47b3d4ccc3a58b.info" beforeDir="false" afterPath="$PROJECT_DIR$/Library/metadata/5c/5ce86ced6de26f149a47b3d4ccc3a58b.info" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Library/metadata/75/75ac83db1cec6459382f15d263a76c5f" beforeDir="false" afterPath="$PROJECT_DIR$/Library/metadata/75/75ac83db1cec6459382f15d263a76c5f" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Library/metadata/75/75ac83db1cec6459382f15d263a76c5f.info" beforeDir="false" afterPath="$PROJECT_DIR$/Library/metadata/75/75ac83db1cec6459382f15d263a76c5f.info" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Library/metadata/77/77cd5f41bd1cc4c3ab4ca5eb88a82c65" beforeDir="false" afterPath="$PROJECT_DIR$/Library/metadata/77/77cd5f41bd1cc4c3ab4ca5eb88a82c65" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Library/metadata/80/80ff8c28fe5f96a438e11c4fadba8100" beforeDir="false" afterPath="$PROJECT_DIR$/Library/metadata/80/80ff8c28fe5f96a438e11c4fadba8100" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Library/metadata/80/80ff8c28fe5f96a438e11c4fadba8100.info" beforeDir="false" afterPath="$PROJECT_DIR$/Library/metadata/80/80ff8c28fe5f96a438e11c4fadba8100.info" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Library/metadata/92/92fc4207f5a84b14fa5c7d11c4863b21" beforeDir="false" afterPath="$PROJECT_DIR$/Library/metadata/92/92fc4207f5a84b14fa5c7d11c4863b21" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Library/metadata/92/92fc4207f5a84b14fa5c7d11c4863b21.info" beforeDir="false" afterPath="$PROJECT_DIR$/Library/metadata/92/92fc4207f5a84b14fa5c7d11c4863b21.info" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Library/metadata/fb/fb63cfc93595449b8b8a6d75e0cada95" beforeDir="false" afterPath="$PROJECT_DIR$/Library/metadata/fb/fb63cfc93595449b8b8a6d75e0cada95" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Library/metadata/fb/fb63cfc93595449b8b8a6d75e0cada95.info" beforeDir="false" afterPath="$PROJECT_DIR$/Library/metadata/fb/fb63cfc93595449b8b8a6d75e0cada95.info" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Library/shadercompiler-UnityShaderCompiler.exe0.log" beforeDir="false" afterPath="$PROJECT_DIR$/Library/shadercompiler-UnityShaderCompiler.exe0.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Packages/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/manifest.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/Assembly-CSharp-Editor-firstpass.csprojAssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/Assembly-CSharp-Editor-firstpass.csprojAssemblyReference.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/Assembly-CSharp-firstpass.csprojAssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/Assembly-CSharp-firstpass.csprojAssemblyReference.cache" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -43,7 +27,23 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
+    <leaf>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Assets/personamove.cs">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="315">
+              <caret line="21" column="72" lean-forward="true" selection-start-line="21" selection-start-column="72" selection-end-line="21" selection-end-column="72" />
+              <folding>
+                <marker date="1558109832749" expanded="true" signature="6:78" ph="..." />
+                <marker date="1558109832749" expanded="true" signature="121:514" ph="{...}" />
+                <marker date="1558109832749" expanded="true" signature="195:266" ph="{...}" />
+                <marker date="1558109832749" expanded="true" signature="291:512" ph="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
@@ -109,10 +109,10 @@
     <setting file="file://$PROJECT_DIR$/Assets/Plugins/HSV-Color-Picker-Unity-master/HSV-Color-Picker-Unity-master/Assets/HSVPicker/UI/ColorSlider.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/ScripHandmade/ActiverpinchDraw.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Plugins/HSV-Color-Picker-Unity-master/HSV-Color-Picker-Unity-master/Assets/HSVPicker/UI/ColorSliderImage.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Shaders/Shader_hand_make/RemanentPostEffect.shader" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/ColorIndicator.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Plugins/HSV-Color-Picker-Unity-master/HSV-Color-Picker-Unity-master/Assets/HSVPicker/UI/SVBoxSlider.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/LeapMotion/Core/Scripts/DetectionUtilities/PinchDetector.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/personamove.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Plugins/HSV-Color-Picker-Unity-master/HSV-Color-Picker-Unity-master/Assets/HSVPicker/UtilityScripts/BoxSlider.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
@@ -145,6 +145,7 @@
         <option value="$PROJECT_DIR$/Assets/LeapMotion/Modules/DetectionExamples/Scripts/PinchDraw.cs" />
         <option value="$PROJECT_DIR$/Assets/Shaders/Shader_hand_make/RemanentPostEffect.shader" />
         <option value="$PROJECT_DIR$/Assets/Shaders/Shader_hand_make/NeigeShader.shader" />
+        <option value="$PROJECT_DIR$/Assets/personamove.cs" />
       </list>
     </option>
   </component>
@@ -227,11 +228,12 @@
       <workItem from="1555020975387" duration="2052000" />
       <workItem from="1555023201312" duration="13000" />
       <workItem from="1555023255881" duration="769000" />
+      <workItem from="1558106345319" duration="1706000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="85649000" />
+    <option name="totallyTimeSpent" value="87355000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -244,6 +246,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Structure" order="0" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="1" />
@@ -1014,22 +1017,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Assets/Shaders/Shader_hand_make/RemanentPostEffect.shader">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="10" column="37" lean-forward="true" selection-start-line="10" selection-start-column="37" selection-end-line="10" selection-end-column="37" />
-          <folding>
-            <marker date="1555023497213" expanded="true" signature="0:218" ph="/* Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)' ... */" />
-            <marker date="1555023497213" expanded="true" signature="245:3123" ph="{...}" />
-            <marker date="1555023497213" expanded="true" signature="267:486" ph="{...}" />
-            <marker date="1555023497213" expanded="true" signature="510:3121" ph="{...}" />
-            <marker date="1555023497213" expanded="true" signature="529:709" ph="{...}" />
-            <marker date="1555023497213" expanded="true" signature="821:3115" ph="{...}" />
-            <marker date="1555023497213" expanded="true" signature="840:3104" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/Shaders/Shader_hand_make/RemanentPostEffect.shader" />
     <entry file="file://$PROJECT_DIR$/Assets/LeapMotion/Modules/DetectionExamples/Scripts/PinchDraw.cs">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="786">
@@ -1154,6 +1142,19 @@
             <marker date="1555021276212" expanded="true" signature="1528:1823" ph="{...}" />
             <marker date="1555021276212" expanded="true" signature="1908:2042" ph="{...}" />
             <marker date="1555021276212" expanded="true" signature="2049:2171" ph="/* if (col.gameObject.tag == &quot;colorPicker&quot;){ ... */" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/personamove.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="21" column="72" lean-forward="true" selection-start-line="21" selection-start-column="72" selection-end-line="21" selection-end-column="72" />
+          <folding>
+            <marker date="1558109832749" expanded="true" signature="6:78" ph="..." />
+            <marker date="1558109832749" expanded="true" signature="121:514" ph="{...}" />
+            <marker date="1558109832749" expanded="true" signature="195:266" ph="{...}" />
+            <marker date="1558109832749" expanded="true" signature="291:512" ph="{...}" />
           </folding>
         </state>
       </provider>
