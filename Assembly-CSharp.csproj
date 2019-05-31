@@ -61,6 +61,7 @@
   <ItemGroup>
     <Compile Include="Assets\ActiveDrawingOn.cs" />
     <Compile Include="Assets\drag.cs" />
+    <Compile Include="Assets\GetLeapFingers.cs" />
     <Compile Include="Assets\Hover\Core\Scripts\Cursors\CursorCapabilityType.cs" />
     <Compile Include="Assets\Hover\Core\Scripts\Cursors\CursorType.cs" />
     <Compile Include="Assets\Hover\Core\Scripts\Cursors\CursorUtil.cs" />
@@ -398,6 +399,7 @@
     <Compile Include="Assets\LeapMotion\Core\Scripts\XR\XRHeightOffset.cs" />
     <Compile Include="Assets\LeapMotion\Modules\DetectionExamples\Scripts\Cancel.cs" />
     <Compile Include="Assets\LeapMotion\Modules\DetectionExamples\Scripts\Collision.cs" />
+    <Compile Include="Assets\LeapMotion\Modules\DetectionExamples\Scripts\HandRaycast.cs" />
     <Compile Include="Assets\LeapMotion\Modules\DetectionExamples\Scripts\LeapRTS.cs" />
     <Compile Include="Assets\LeapMotion\Modules\DetectionExamples\Scripts\MengerSponge.cs" />
     <Compile Include="Assets\LeapMotion\Modules\DetectionExamples\Scripts\PinchDraw.cs" />

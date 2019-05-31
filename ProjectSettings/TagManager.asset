@@ -9,6 +9,12 @@ TagManager:
   - 3dObj
   - colorPicker
   - ring
+  - raycast
+  - craycast
+  - deplacement
+  - posIndR
+  - posIndL
+  - riX
   layers:
   - Default
   - TransparentFX

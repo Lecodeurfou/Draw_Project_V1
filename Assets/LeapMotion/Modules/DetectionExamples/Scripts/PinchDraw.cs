@@ -18,122 +18,134 @@ using Hover.Core.Items.Types;
 
 namespace Leap.Unity.DetectionExamples {
 
-  public class PinchDraw : MonoBehaviour {
+  public class PinchDraw : MonoBehaviour
+  {
 
-    [Tooltip("Each pinch detector can draw one line at a time.")]
-    [SerializeField]
+    [Tooltip("Each pinch detector can draw one line at a time.")] [SerializeField]
     private PinchDetector[] _pinchDetectors;
 
-    [SerializeField]
-    private Material _material;
+    private PinchDetector2[] _pinchDetectors2;
+    [SerializeField] private Material _material;
 
     [SerializeField] private Color _drawColor;
 
-    [SerializeField]
-    private float _smoothingDelay = 0.01f;
+    [SerializeField] private float _smoothingDelay = 0.01f;
 
-    [SerializeField]
-    private float _drawRadius = 0.002f;
+    [SerializeField] private float _drawRadius = 0.002f;
 
-    [SerializeField]
-    private int _drawResolution = 8;
+    [SerializeField] private int _drawResolution = 8;
 
-    [SerializeField]
-    private float _minSegmentLength = 0.005f;
+    [SerializeField] private float _minSegmentLength = 0.005f;
 
     public string _selected;
     public int isDrag = 0;
     public float curd;
     public float curt;
     private int pHand = 0;
+    bool deplaM = false;
+    bool deplaR = false;
+    private GameObject pinchL;
+    private GameObject pinchR;
+    private GameObject cam;
+    float save = 0f;
+    float sss = 0;
+    private GameObject RIX;
+    
+
+
 
     private float dist;
     public static int _line;
-    public int Line {
-      get {
-        return _line;
-      }
-      set {
-        _line = value;
-      }
+
+    public int Line
+    {
+      get { return _line; }
+      set { _line = value; }
     }
 
     private GameObject _slider; // get color box
-    private GameObject _slider2; 
-    
+    private GameObject _slider2;
+
     //Pile des objets pouvant être cancel
     public static List<int> zTab;
-    public List<int> Ztab {
-      get {
-        return zTab;
-      }
-      set {
-        zTab = value;
-      }
+
+    public List<int> Ztab
+    {
+      get { return zTab; }
+      set { zTab = value; }
     }
+
     //Pile des objets pouvant être décancel
     public static List<int> yTab;
-    public List<int> Ytab {
-      get {
-        return yTab;
-      }
-      set {
-        yTab = value;
-      }
+
+    public List<int> Ytab
+    {
+      get { return yTab; }
+      set { yTab = value; }
     }
+
     // Permet d'acceder à la valeur du slider
     public GameObject arcValue;
+
     // Permet d'acceder à la valeur du slider
     public static GameObject arcValueU;
 
     private int state = 1;
 
-    public int State {
-      get {
-        return state;
-      }
-      set {
-        state = value;
-      }
+    public int State
+    {
+      get { return state; }
+      set { state = value; }
     }
 
-    
+
     private DrawState[] _drawStates;
+    private DrawState[] _drawStates2;
 
-    public Color DrawColor {
-      get {
-        return _drawColor;
-      }
-      set {
-        _drawColor = value;
-      }
+    public Color DrawColor
+    {
+      get { return _drawColor; }
+      set { _drawColor = value; }
     }
 
-    public float DrawRadius {
-      get {
-        return _drawRadius;
-      }
-      set {
-        _drawRadius = value;
-      }
+    public float DrawRadius
+    {
+      get { return _drawRadius; }
+      set { _drawRadius = value; }
     }
 
-    void OnValidate() {
+    void OnValidate()
+    {
       _drawRadius = Mathf.Max(0, _drawRadius);
       _drawResolution = Mathf.Clamp(_drawResolution, 3, 24);
       _minSegmentLength = Mathf.Max(0, _minSegmentLength);
     }
 
-    void Awake() {
-      if (_pinchDetectors.Length == 0) {
-        Debug.LogWarning("No pinch detectors were specified!  PinchDraw can not draw any lines without PinchDetectors.");
+    void Awake()
+    {
+      if (_pinchDetectors.Length == 0)
+      {
+        Debug.LogWarning(
+          "No pinch detectors were specified!  PinchDraw can not draw any lines without PinchDetectors.");
       }
+
+/*      if (_pinchDetectors2.Length == 0)
+      {
+        Debug.LogWarning(
+          "No pinch detectors were specified!  PinchDraw can not draw any lines without PinchDetectors.");
+      }*/
     }
 
-    void Start() {
+    void Start()
+    {
       _drawStates = new DrawState[_pinchDetectors.Length];
-      for (int i = 0; i < _pinchDetectors.Length; i++) {
+      for (int i = 0; i < _pinchDetectors.Length; i++)
+      {
         _drawStates[i] = new DrawState(this);
+
+/*      _drawStates2 = new DrawState[_pinchDetectors2.Length];
+      for (int j = 0; j < _pinchDetectors2.Length; j++) {
+        _drawStates2[j] = new DrawState(this);*/
       }
 
       //nos initialisation
@@ -142,24 +154,30 @@ namespace Leap.Unity.DetectionExamples {
       yTab = new List<int>();
       arcValueU = arcValue;
       arcValueU.GetComponent<HoverItemDataSlider>().Value = 0.1f;
-      
-      
+      pinchR = GameObject.FindWithTag("posIndR");
+      pinchL = GameObject.FindWithTag("posIndL");
+      cam = GameObject.FindWithTag("deplacement");
+      RIX = GameObject.FindWithTag("riX");
     }
 
-    public void removeZ() {
-      if (zTab.Count >= 1){
+    public void removeZ()
+    {
+      if (zTab.Count >= 1)
+      {
         string s = "line" + zTab[zTab.Count - 1];
         GameObject obj = GameObject.Find(s);
         MeshRenderer m = obj.GetComponent<MeshRenderer>();
         m.enabled = false;
         yTab.Add(zTab[zTab.Count - 1]);
         zTab.RemoveAt(zTab.Count - 1);
-        
+
       }
     }
 
-    public void removeY() {
-      if (yTab.Count >= 1){
+    public void removeY()
+    {
+      if (yTab.Count >= 1)
+      {
         string s = "line" + yTab[yTab.Count - 1];
         GameObject obj = GameObject.Find(s);
         MeshRenderer m = obj.GetComponent<MeshRenderer>();
@@ -169,7 +187,8 @@ namespace Leap.Unity.DetectionExamples {
       }
     }
 
-    void Update() {
+    void Update()
+    {
       _drawColor = GameObject.Find("Picker").GetComponent<ColorPicker>().CurrentColor;
       if (state == 1)
         drawTrail();
@@ -182,12 +201,83 @@ namespace Leap.Unity.DetectionExamples {
         GameObject.Find("CanvasPicker").GetComponent<Canvas>().enabled = true;
         pickColor();
       }
-      else 
+      else
         GameObject.Find("CanvasPicker").GetComponent<Canvas>().enabled = false;
-      
+
+      if (state == 11)
+        deplacement();
 
     }
+    Vector3 tmp = new Vector3(0,0,0);
+    Vector3 tmp2 = new Vector3(0,0,0);
+    //Quaternion qtmp = new Quaternion();
+    //Quaternion qtmp2 = new Quaternion();
 
+
+
+    private Rigidbody crc;
+    void deplacement()
+    {
+
+      for (int i = 0; i < _pinchDetectors.Length; i++)
+      {
+        var detector = _pinchDetectors[i];
+        var drawState = _drawStates[i];
+
+
+        
+        
+        if (detector == _pinchDetectors[1] && !deplaR) 
+        {
+          if (detector.DidStartHold)
+          {
+            save = pinchR.transform.position.y;
+            crc = cam.GetComponent<Rigidbody>();
+            deplaM = true;
+          }
+
+          if (detector.IsHolding)
+          {
+            sss = (save - pinchR.transform.position.y);
+            crc.velocity = crc.transform.forward * sss * -20;
+          }
+
+          if (detector.DidRelease)
+          {
+            deplaM = false;
+            crc.velocity = new Vector3(0,0,0);
+          }
+        }
+
+        
+        
+
+        else if (detector == _pinchDetectors[0] && !deplaM)
+        {
+
+          if (detector.DidStartHold)
+          {
+            deplaR = true;
+            save = pinchL.transform.position.y;
+            crc = cam.GetComponent<Rigidbody>();
+          }
+
+          if (detector.IsHolding)
+          {
+            sss = save - pinchL.transform.position.y;
+            crc.MoveRotation(Quaternion.Euler(cam.transform.localRotation.x, cam.transform.eulerAngles.y + (sss * 20), cam.transform.localRotation.z));
+          }
+
+          if (detector.DidRelease)
+            deplaR = false;
+        }
+        
+        
+        
+        
+    }
+  }
+    
 /*    int getHand(String detector)
     {
       if (detector == "PinchDetector_R")
@@ -270,7 +360,6 @@ namespace Leap.Unity.DetectionExamples {
         }
       }    
     }
-
     void pickColor (){
       for (int i = 0; i < _pinchDetectors.Length; i++) {
         var detector = _pinchDetectors[i];
@@ -312,6 +401,47 @@ namespace Leap.Unity.DetectionExamples {
         }
       }    
     }
+/*    void pickColor (){
+      for (int i = 0; i < _pinchDetectors.Length; i++) {
+        var detector = _pinchDetectors[i];
+        var drawState = _drawStates[i];
+        _slider = GameObject.Find("BoxSlider");
+        float myx = 0;
+        float myy = 0;
+        float myx2 = 0;
+        float myy2 = 0;
+        float my2 = 0;
+        
+        if (detector.DidStartHold) {
+          if (detector == _pinchDetectors[1]){
+            myx = GameObject.Find("RightIndex").transform.position.x;
+            myy = GameObject.Find("RightIndex").transform.position.y;
+            myx2 = _slider.GetComponent<BoxSlider>().normalizedValueY;
+            myy2 = _slider.GetComponent<BoxSlider>().normalizedValue;
+          }
+          
+          if (detector == _pinchDetectors[0]){
+            myy = GameObject.Find("LeftIndex").transform.position.y;
+            my2 = GameObject.Find("Hue").GetComponent<Slider>().value;
+          }
+        }
+
+        if (detector.DidRelease) {
+        }
+
+        if (detector.IsHolding)
+        {
+          if (detector == _pinchDetectors[1]){
+            _slider.GetComponent<BoxSlider>().normalizedValueY = (myy2+(-(myy-GameObject.Find("RightIndex").transform.position.y) *5) + 1);
+            _slider.GetComponent<BoxSlider>().normalizedValue =  (((myx-GameObject.Find("RightIndex").transform.position.x) *5) + 0.5F);
+          }
+          
+          if (detector == _pinchDetectors[0]){
+            GameObject.Find("Hue").GetComponent<Slider>().value = (my2+((myy-GameObject.Find("LeftIndex").transform.position.y)*-5)+1);
+          }
+        }
+      }    
+    }*/
 
     double sqr(double val)
     {

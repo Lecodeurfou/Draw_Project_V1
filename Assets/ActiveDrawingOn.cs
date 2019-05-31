@@ -55,4 +55,8 @@ public class ActiveDrawingOn : MonoBehaviour
     public void pickColor (){
         obj.GetComponent<PinchDraw>().State = 10;
     }
+
+    public void movement (){
+        obj.GetComponent<PinchDraw>().State = 11;
+    }
 }

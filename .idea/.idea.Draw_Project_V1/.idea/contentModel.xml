@@ -11,6 +11,7 @@
       <e p="Assets" t="Include">
         <e p="ActiveDrawingOn.cs" t="Include" />
         <e p="drag.cs" t="Include" />
+        <e p="GetLeapFingers.cs" t="Include" />
         <e p="Hover" t="Include">
           <e p="Core" t="Include">
             <e p="Resources" t="Include">
@@ -598,6 +599,7 @@
               <e p="Scripts" t="Include">
                 <e p="Cancel.cs" t="Include" />
                 <e p="Collision.cs" t="Include" />
+                <e p="HandRaycast.cs" t="Include" />
                 <e p="LeapRTS.cs" t="Include" />
                 <e p="MengerSponge.cs" t="Include" />
                 <e p="PinchDraw.cs" t="Include" />
