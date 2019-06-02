@@ -406,6 +406,7 @@
     <Compile Include="Assets\LeapMotion\Modules\DetectionExamples\Scripts\SpawnBalls.cs" />
     <Compile Include="Assets\personamove.cs" />
     <Compile Include="Assets\reset.cs" />
+    <Compile Include="Assets\SaveObjInfo.cs" />
     <Compile Include="Assets\Scripts\ColorHuePicker.cs" />
     <Compile Include="Assets\Scripts\ColorIndicator.cs" />
     <Compile Include="Assets\Scripts\ColorSaturationBrightnessPicker.cs" />

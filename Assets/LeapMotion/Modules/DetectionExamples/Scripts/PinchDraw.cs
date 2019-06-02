@@ -11,8 +11,12 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using System.IO;
+using System.Net.NetworkInformation;
 using Hover.Core.Renderers.Shapes.Arc;
 using Hover.Core.Items.Types;
+using SimpleJSON;
+using UnityEngine.Experimental.PlayerLoop;
 
 //[RequireComponent(typeof(BoxSlider), typeof(RawImage)), ExecuteInEditMode()]
 
@@ -50,10 +54,11 @@ namespace Leap.Unity.DetectionExamples {
     float save = 0f;
     float sss = 0;
     private GameObject RIX;
+    public List<Vector3> ringList;
+    public List<int> loadRing;
+    public List<List<Vector3>> loadList;
     
-
-
-
+    
     private float dist;
     public static int _line;
 
@@ -128,6 +133,8 @@ namespace Leap.Unity.DetectionExamples {
         Debug.LogWarning(
           "No pinch detectors were specified!  PinchDraw can not draw any lines without PinchDetectors.");
       }
+      ringList = new List<Vector3>();
+      loadRing = new List<int>();
 
 /*      if (_pinchDetectors2.Length == 0)
       {
@@ -152,6 +159,7 @@ namespace Leap.Unity.DetectionExamples {
       _line = 0;
       zTab = new List<int>();
       yTab = new List<int>();
+      loadList = new List<List<Vector3>>();
       arcValueU = arcValue;
       arcValueU.GetComponent<HoverItemDataSlider>().Value = 0.1f;
       pinchR = GameObject.FindWithTag("posIndR");
@@ -189,6 +197,10 @@ namespace Leap.Unity.DetectionExamples {
 
     void Update()
     {
+      if (Input.GetKeyDown(KeyCode.S) )
+        Save();
+      if (Input.GetKeyDown(KeyCode.L) )
+        Load();
       _drawColor = GameObject.Find("Picker").GetComponent<ColorPicker>().CurrentColor;
       if (state == 1)
         drawTrail();
@@ -285,6 +297,68 @@ namespace Leap.Unity.DetectionExamples {
       else
         return 0;
     }*/
+
+    public static float RoundValue(float num, float precision)
+    {
+      return Mathf.Floor(num * precision + 0.5f) / precision;
+    }
+    void Save()
+    {
+      JSONArray obj = new JSONArray();
+      JSONArray listR = new JSONArray();
+      JSONArray pos = new JSONArray();
+      List<Vector3> rings = GameObject.Find("line" + 0).GetComponent<SaveObjInfo>().coord;      
+      for (int j = 0; j < _line; j++)
+      {
+        listR = new JSONArray();
+        rings = GameObject.Find("line" + j).GetComponent<SaveObjInfo>().coord;
+        for (int i = 0; i < rings.Count; i++)
+        {
+          pos = new JSONArray();
+          pos.Add(rings[i].x);
+          pos.Add(rings[i].y);
+          pos.Add(rings[i].z);
+          listR.Add(pos);
+        }
+        //obj.Add(j);
+        obj.Add(listR);
+      }
+      
+      string path = Application.persistentDataPath + "/objInfo.json";
+      File.WriteAllText(path, obj.ToString());
+    }
+    
+    
+    void DestroyAll(string tag)
+    {
+      GameObject[] enemies = GameObject.FindGameObjectsWithTag(tag);
+      for(int i=0; i< enemies.Length; i++)
+      {
+        Destroy(enemies[i]);
+      }
+    }
+    void Load()
+    {
+      DestroyAll("line");
+      _line = 0;
+      string path = Application.persistentDataPath + "/objInfo.json";
+      string jsonString = File.ReadAllText(path);
+      JSONArray obj = (JSONArray) JSON.Parse(jsonString);
+      var drawState = _drawStates[1];
+      var detector = _pinchDetectors[1];
+      
+      foreach (JSONArray t1 in obj)
+      {
+        drawState.BeginNewLine();
+        foreach (JSONArray t2 in t1)
+        {
+          Vector3 val = new Vector3(t2[0],t2[1],t2[2]);
+          drawState.UpdateLine2(val);
+        }
+        drawState.FinishLine();
+      }
+    }
+    
     
     void draw3DObject (){
       for (int i = 0; i < _pinchDetectors.Length; i++) {
@@ -360,6 +434,7 @@ namespace Leap.Unity.DetectionExamples {
         }
       }    
     }
+    
     void pickColor (){
       for (int i = 0; i < _pinchDetectors.Length; i++) {
         var detector = _pinchDetectors[i];
@@ -514,6 +589,7 @@ namespace Leap.Unity.DetectionExamples {
       private PinchDraw _parent;
 
       private int _rings = 0;
+      GameObject currentObj;
 
       private Vector3 _prevRing0 = Vector3.zero;
       private Vector3 _prevRing1 = Vector3.zero;
@@ -552,13 +628,28 @@ namespace Leap.Unity.DetectionExamples {
         lineObj.transform.position = Vector3.zero;
         lineObj.transform.rotation = Quaternion.identity;
         lineObj.transform.localScale = Vector3.one;
+        lineObj.tag = "line";
         lineObj.AddComponent<MeshFilter>().mesh = _mesh;
         lineObj.AddComponent<MeshRenderer>().sharedMaterial = _parent._material;
-     
+        lineObj.AddComponent<SaveObjInfo>();
+        currentObj = lineObj;
+        currentObj.GetComponent<SaveObjInfo>().coord = new List<Vector3>();
         return lineObj;
       }
 
+      public void UpdateLine2(Vector3 position) {
+        _smoothedPosition.Update(position, Time.deltaTime);
 
+        bool shouldAdd = false;
+
+        shouldAdd |= _vertices.Count == 0;
+        shouldAdd |= Vector3.Distance(_prevRing0, _smoothedPosition.value) >= _parent._minSegmentLength;
+
+        if (shouldAdd) {
+          addRing(position);
+          updateMesh();
+        }
+      }
       public void UpdateLine(Vector3 position) {
         _smoothedPosition.Update(position, Time.deltaTime);
 
@@ -573,6 +664,7 @@ namespace Leap.Unity.DetectionExamples {
         }
       }
 
+      
       public void FinishLine() {
         _mesh.UploadMeshData(true);
       }
@@ -585,10 +677,15 @@ namespace Leap.Unity.DetectionExamples {
         _mesh.RecalculateBounds();
         _mesh.RecalculateNormals();
       }
+      
+      public void addRing(Vector3 ringPosition){
+        //_parent.ringList.Add(ringPosition);
+        //_parent.loadRing.Add(_line-1);
+        currentObj.GetComponent<SaveObjInfo>().coord.Add(ringPosition);
+        currentObj.GetComponent<SaveObjInfo>().line = _line-1;
 
-      private void addRing(Vector3 ringPosition){
         _rings++;
-        Debug.Log(arcValueU.GetComponent<HoverItemDataSlider>().Value*10); //Debug la valeur selectionné dans l'arc value
+        //Debug.Log(arcValueU.GetComponent<HoverItemDataSlider>().Value*10); //Debug la valeur selectionné dans l'arc value
 
         if (_rings == 1) {
           addVertexRing();

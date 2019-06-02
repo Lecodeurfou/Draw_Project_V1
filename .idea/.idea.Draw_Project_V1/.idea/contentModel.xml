@@ -662,9 +662,11 @@
               </e>
             </e>
           </e>
+          <e p="SimpleJSON.cs" t="Include" />
         </e>
         <e p="readme.txt" t="Include" />
         <e p="reset.cs" t="Include" />
+        <e p="SaveObjInfo.cs" t="Include" />
         <e p="Scripts" t="Include">
           <e p="ColorHuePicker.cs" t="Include" />
           <e p="ColorIndicator.cs" t="Include" />

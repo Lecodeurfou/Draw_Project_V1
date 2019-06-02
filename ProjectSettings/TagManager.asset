@@ -15,6 +15,7 @@ TagManager:
   - posIndR
   - posIndL
   - riX
+  - line
   layers:
   - Default
   - TransparentFX

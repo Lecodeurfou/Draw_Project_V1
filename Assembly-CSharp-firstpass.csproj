@@ -76,6 +76,7 @@
     <Compile Include="Assets\Plugins\HSV-Color-Picker-Unity-master\HSV-Color-Picker-Unity-master\Assets\HSVPicker\UI\SVBoxSlider.cs" />
     <Compile Include="Assets\Plugins\HSV-Color-Picker-Unity-master\HSV-Color-Picker-Unity-master\Assets\HSVPicker\UtilityScripts\BoxSlider.cs" />
     <Compile Include="Assets\Plugins\HSV-Color-Picker-Unity-master\HSV-Color-Picker-Unity-master\Assets\HSVPicker\UtilityScripts\HSVUtil.cs" />
+    <Compile Include="Assets\Plugins\SimpleJSON.cs" />
     <None Include="Assets\Plugins\HSV-Color-Picker-Unity-master\HSV-Color-Picker-Unity-master\Assets\HSVPicker\Resources\Shaders\Compute\GenerateSVTexture.compute" />
     <None Include="Assets\Plugins\HSV-Color-Picker-Unity-master\HSV-Color-Picker-Unity-master\Assets\HSVPicker\README.txt" />
     <None Include="Assets\Plugins\HSV-Color-Picker-Unity-master\HSV-Color-Picker-Unity-master\ProjectSettings\ProjectVersion.txt" />
