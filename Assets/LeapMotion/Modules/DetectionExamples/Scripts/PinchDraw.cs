@@ -307,128 +307,25 @@ namespace Leap.Unity.DetectionExamples {
       JSONArray obj = new JSONArray();
       JSONArray listR = new JSONArray();
       JSONArray pos = new JSONArray();
-      JSONArray typeO = new JSONArray();
-      List<Vector3> rings = GameObject.Find("line" + 0).GetComponent<SaveObjInfo>().coord;
-
-      GameObject[] objs ;
-      objs = GameObject.FindGameObjectsWithTag("line");
-      JSONArray transINfos = new JSONArray();
-      JSONArray infosJSON = new JSONArray();
-      foreach (GameObject lineObj in objs)
+      List<Vector3> rings = GameObject.Find("line" + 0).GetComponent<SaveObjInfo>().coord;      
+      for (int j = 0; j < _line; j++)
       {
         listR = new JSONArray();
-        rings = lineObj.GetComponent<SaveObjInfo>().coord;
-        Vector4 colorInfo = lineObj.GetComponent<SaveObjInfo>().color;
-
+        rings = GameObject.Find("line" + j).GetComponent<SaveObjInfo>().coord;
         for (int i = 0; i < rings.Count; i++)
         {
           pos = new JSONArray();
           pos.Add(rings[i].x);
           pos.Add(rings[i].y);
           pos.Add(rings[i].z);
-          pos.Add(colorInfo[0]);
-          pos.Add(colorInfo[1]);
-          pos.Add(colorInfo[2]);
-          pos.Add(colorInfo[3]);
-          
           listR.Add(pos);
         }
-
         //obj.Add(j);
         obj.Add(listR);
       }
-      typeO.Add("Line",obj);
-
-
-      objs = GameObject.FindGameObjectsWithTag("Cube");
-      transINfos = new JSONArray();
-      infosJSON = new JSONArray();
-      obj = new JSONArray();
-      foreach(GameObject cubeObj in objs) {
-        infosJSON = new JSONArray();
-        
-        pos = new JSONArray();
-        pos.Add(cubeObj.transform.position.x);
-        pos.Add(cubeObj.transform.position.y);
-        pos.Add(cubeObj.transform.position.z);
-        infosJSON.Add(pos);
-        
-        pos = new JSONArray();
-        pos.Add(cubeObj.transform.localRotation.x);
-        pos.Add(cubeObj.transform.localRotation.y);
-        pos.Add(cubeObj.transform.localRotation.z);
-        pos.Add(cubeObj.transform.localRotation.w);
-        infosJSON.Add(pos);
-        
-        pos = new JSONArray();
-        pos.Add(cubeObj.transform.localScale.x);
-        pos.Add(cubeObj.transform.localScale.y);
-        pos.Add(cubeObj.transform.localScale.z);
-        infosJSON.Add(pos);
-        obj.Add(infosJSON);
-        
-        pos = new JSONArray();
-        Vector4 ColorInfo = cubeObj.GetComponent<Renderer>().material.color;
-        pos.Add(ColorInfo.x);
-        pos.Add(ColorInfo.y);
-        pos.Add(ColorInfo.z);
-        pos.Add(ColorInfo.w);
-        infosJSON.Add(pos);
-        
-        
-        pos = new JSONArray();
-        pos.Add(cubeObj.GetComponent<Renderer>().material.shader.name.ToString());
-        infosJSON.Add(pos);
-        
-
-      }
-      typeO.Add(obj);
-      
-      objs = GameObject.FindGameObjectsWithTag("Sphere");
-      transINfos = new JSONArray();
-      infosJSON = new JSONArray();
-      obj = new JSONArray();
-      foreach(GameObject cubeObj in objs) {
-        infosJSON = new JSONArray();
-        
-        pos = new JSONArray();
-        pos.Add(cubeObj.transform.position.x);
-        pos.Add(cubeObj.transform.position.y);
-        pos.Add(cubeObj.transform.position.z);
-        infosJSON.Add(pos);
-        
-        pos = new JSONArray();
-        pos.Add(cubeObj.transform.localRotation.x);
-        pos.Add(cubeObj.transform.localRotation.y);
-        pos.Add(cubeObj.transform.localRotation.z);
-        pos.Add(cubeObj.transform.localRotation.w);
-        infosJSON.Add(pos);
-        
-        pos = new JSONArray();
-        pos.Add(cubeObj.transform.localScale.x);
-        pos.Add(cubeObj.transform.localScale.y);
-        pos.Add(cubeObj.transform.localScale.z);
-        infosJSON.Add(pos);
-        
-        pos = new JSONArray();
-        //Vector4 ColorInfo = cubeObj.GetComponent<Renderer>().material.color;
-        Vector4 ColorInfo = cubeObj.GetComponent<Renderer>().material.color;
-        pos.Add(ColorInfo.x);
-        pos.Add(ColorInfo.y);
-        pos.Add(ColorInfo.z);
-        pos.Add(ColorInfo.w);
-        infosJSON.Add(pos);
-        obj.Add(infosJSON);
-        
-        pos = new JSONArray();
-        pos.Add(cubeObj.GetComponent<Renderer>().material.shader.name.ToString());
-        infosJSON.Add(pos);
-      }
-      typeO.Add(obj);
-
       
       string path = Application.persistentDataPath + "/objInfo.json";
-      File.WriteAllText(path, typeO.ToString());
+      File.WriteAllText(path, obj.ToString());
     }
     
     
@@ -440,12 +337,9 @@ namespace Leap.Unity.DetectionExamples {
         Destroy(enemies[i]);
       }
     }
-    
     void Load()
     {
       DestroyAll("line");
-      DestroyAll("Cube");
-      DestroyAll("Sphere");
       _line = 0;
       string path = Application.persistentDataPath + "/objInfo.json";
       string jsonString = File.ReadAllText(path);
@@ -453,61 +347,16 @@ namespace Leap.Unity.DetectionExamples {
       var drawState = _drawStates[1];
       var detector = _pinchDetectors[1];
       
-      foreach (JSONArray t1 in obj[0])
+      foreach (JSONArray t1 in obj)
       {
         drawState.BeginNewLine();
-        foreach (JSONArray t0 in t1)
+        foreach (JSONArray t2 in t1)
         {
-          Vector3 val = new Vector3(t0[0],t0[1],t0[2]);
+          Vector3 val = new Vector3(t2[0],t2[1],t2[2]);
           drawState.UpdateLine2(val);
-          DrawColor = new Color(t0[3],t0[4], t0[5], t0[6]);
         }
         drawState.FinishLine();
       }
-      
-
-      foreach (JSONArray t1 in obj[1])
-      {
-
-          GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
-          cube.GetComponent<BoxCollider>().isTrigger = true;
-          cube.tag = "Cube";
-          cube.name = "line" + _line;
-          cube.transform.position = new Vector3(t1[0][0],t1[0][1],t1[0][2]);
-          cube.transform.localRotation = new Quaternion(t1[1][0],t1[1][1],t1[1][2],t1[1][3]);
-          cube.transform.localScale = new Vector3(t1[2][0],t1[2][1],t1[2][2]);
-          String text = t1[4][0];
-          Material material = new Material(Shader.Find(text));
-          cube.GetComponent<Renderer>().material = material;
-          cube.GetComponent<Renderer>().material.SetColor("_Color", new Vector4(t1[3][0],t1[3][1],t1[3][2],t1[3][3]));
-
-          zTab.Add(_line);
-          _line++;
-
-      }
-      
-      foreach (JSONArray t2 in obj[2])
-      {
-
-          GameObject sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-          //BoxCollider boxCollider = sphere.AddComponent<BoxCollider>();
-          sphere.GetComponent<SphereCollider>().isTrigger = true;
-          //boxCollider.isTrigger = true;
-          sphere.tag = "Sphere";
-          sphere.name = "line" + _line;
-          sphere.transform.position = new Vector3(t2[0][0],t2[0][1],t2[0][2]);
-          sphere.transform.localRotation = new Quaternion(t2[1][0],t2[1][1],t2[1][2],t2[1][3]);
-          sphere.transform.localScale = new Vector3(t2[2][0],t2[2][1],t2[2][2]);
-          String text = t2[4][0];
-          Debug.Log(text);
-
-          Material material = new Material(Shader.Find(text));
-          sphere.GetComponent<Renderer>().material = material;
-          sphere.GetComponent<Renderer>().material.SetColor("_Color", new Vector4(t2[3][0],t2[3][1],t2[3][2],t2[3][3]));
-
-          zTab.Add(_line);
-          _line++;
-      }      
     }
     
     
@@ -528,7 +377,7 @@ namespace Leap.Unity.DetectionExamples {
               // Si state vaut 2 on dessine des cubes
               GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
               cube.GetComponent<BoxCollider>().isTrigger = true;
-              cube.tag = "Cube";
+              cube.tag = "3dObj";
               cube.name = "line" + _line;
 
 
@@ -544,11 +393,9 @@ namespace Leap.Unity.DetectionExamples {
             {
               // Si state vaut 3 on dessine des Spheres
               GameObject sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-              //BoxCollider boxCollider = sphere.AddComponent<BoxCollider>();
-              sphere.GetComponent<SphereCollider>().isTrigger = true;
-
-              //boxCollider.isTrigger = true;
-              sphere.tag = "Sphere";
+              BoxCollider boxCollider = sphere.AddComponent<BoxCollider>();
+              boxCollider.isTrigger = true;
+              sphere.tag = "3dObj";
               sphere.name = "line" + _line;
 
 
@@ -903,8 +750,7 @@ namespace Leap.Unity.DetectionExamples {
 
         //COLOR//
           _parent.DrawColor = GameObject.Find("Picker").GetComponent<ColorPicker>().CurrentColor;
-          currentObj.GetComponent<SaveObjInfo>().color = _parent.DrawColor;
-          
+
       }
 
       private void addVertexRing() {

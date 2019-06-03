@@ -16,8 +16,6 @@ TagManager:
   - posIndL
   - riX
   - line
-  - Cube
-  - Sphere
   layers:
   - Default
   - TransparentFX

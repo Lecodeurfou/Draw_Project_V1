@@ -662,9 +662,7 @@
               </e>
             </e>
           </e>
-          <e p="SimpleJSON" t="Include">
-            <e p="SimpleJSON.cs" t="Include" />
-          </e>
+          <e p="SimpleJSON.cs" t="Include" />
         </e>
         <e p="readme.txt" t="Include" />
         <e p="reset.cs" t="Include" />
