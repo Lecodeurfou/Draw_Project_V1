@@ -218,16 +218,20 @@ namespace Leap.Unity.DetectionExamples {
 
     void Update()
     {
-      if (Input.GetKeyDown(KeyCode.S))
-      {
-        if (state != 12 && state != 13)
-          prevState = state;
-        state = 12;
-        saveTextObj.SetActive(true);
-        saveTextObj.GetComponent<TMP_InputField>().ActivateInputField();
-        saveTextObj.GetComponent<TMP_InputField>().text = "";
 
-        SaveScene();
+      if (state != 12 && state != 13)
+      {
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+          if (state != 12 && state != 13)
+            prevState = state;
+          state = 12;
+          saveTextObj.SetActive(true);
+          saveTextObj.GetComponent<TMP_InputField>().ActivateInputField();
+          saveTextObj.GetComponent<TMP_InputField>().text = "";
+
+          SaveScene();
+        }
       }
 
       if (!loadCont.activeSelf && state != 12)
@@ -577,6 +581,14 @@ namespace Leap.Unity.DetectionExamples {
         infosJSON.Add(pos);
       }
       typeO.Add(obj);
+      
+      
+      
+      pos = new JSONArray();
+      pos.Add(cam.transform.position.x);
+      pos.Add(cam.transform.position.z);
+      pos.Add(cam.transform.localRotation.y);
+      typeO.Add(pos);
 
       
       File.WriteAllText(path, typeO.ToString());
@@ -615,7 +627,6 @@ namespace Leap.Unity.DetectionExamples {
         }
         drawState.FinishLine();
       }
-      
 
       foreach (JSONArray t1 in obj[1])
       {
@@ -634,7 +645,6 @@ namespace Leap.Unity.DetectionExamples {
 
           zTab.Add(_line);
           _line++;
-
       }
       
       foreach (JSONArray t2 in obj[2])
@@ -657,7 +667,10 @@ namespace Leap.Unity.DetectionExamples {
 
           zTab.Add(_line);
           _line++;
-      }      
+      }
+
+      cam.transform.position = new Vector3(obj[3][0],cam.transform.position.y,obj[3][1]);
+      cam.transform.localRotation = new Quaternion(cam.transform.localRotation.x,obj[3][2],cam.transform.localRotation.z,cam.transform.localRotation.w);
     }
     
     
