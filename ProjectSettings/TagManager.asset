@@ -21,6 +21,7 @@ TagManager:
   - saveText
   - loadText
   - loadCont
+  - loadDel
   layers:
   - Default
   - TransparentFX
