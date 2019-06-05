@@ -18,6 +18,9 @@ TagManager:
   - line
   - Cube
   - Sphere
+  - saveText
+  - loadText
+  - loadCont
   layers:
   - Default
   - TransparentFX

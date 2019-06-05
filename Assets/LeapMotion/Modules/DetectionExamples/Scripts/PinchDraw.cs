@@ -12,10 +12,14 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Net.Mime;
 using System.Net.NetworkInformation;
+using System.Text.RegularExpressions;
 using Hover.Core.Renderers.Shapes.Arc;
 using Hover.Core.Items.Types;
 using SimpleJSON;
+using TMPro;
 using UnityEngine.Experimental.PlayerLoop;
 
 //[RequireComponent(typeof(BoxSlider), typeof(RawImage)), ExecuteInEditMode()]
@@ -30,6 +34,7 @@ namespace Leap.Unity.DetectionExamples {
 
     private PinchDetector2[] _pinchDetectors2;
     [SerializeField] private Material _material;
+    [SerializeField] private GameObject buttonprefab;
 
     [SerializeField] private Color _drawColor;
 
@@ -57,6 +62,10 @@ namespace Leap.Unity.DetectionExamples {
     public List<Vector3> ringList;
     public List<int> loadRing;
     public List<List<Vector3>> loadList;
+    public GameObject saveTextObj;
+    public GameObject loadTextObj;
+    public GameObject loadCont;
+    private List<GameObject> ButtonsLoad;
     
     
     private float dist;
@@ -107,6 +116,7 @@ namespace Leap.Unity.DetectionExamples {
     private DrawState[] _drawStates;
     private DrawState[] _drawStates2;
 
+    public int prevState = 1;
     public Color DrawColor
     {
       get { return _drawColor; }
@@ -145,6 +155,11 @@ namespace Leap.Unity.DetectionExamples {
 
     void Start()
     {
+      saveTextObj = GameObject.FindWithTag("saveText");
+      saveTextObj.SetActive(false);
+      loadTextObj = GameObject.FindWithTag("loadText");
+      loadCont = GameObject.FindWithTag("loadCont");
+      loadCont.SetActive(false);
       _drawStates = new DrawState[_pinchDetectors.Length];
       for (int i = 0; i < _pinchDetectors.Length; i++)
       {
@@ -154,6 +169,7 @@ namespace Leap.Unity.DetectionExamples {
       for (int j = 0; j < _pinchDetectors2.Length; j++) {
         _drawStates2[j] = new DrawState(this);*/
       }
+
 
       //nos initialisation
       _line = 0;
@@ -197,10 +213,33 @@ namespace Leap.Unity.DetectionExamples {
 
     void Update()
     {
-      if (Input.GetKeyDown(KeyCode.S) )
-        Save();
-      if (Input.GetKeyDown(KeyCode.L) )
-        Load();
+      if (Input.GetKeyDown(KeyCode.S))
+      {
+        prevState = state;
+        state = 12;
+        saveTextObj.SetActive(true);
+        SaveScene();
+      }
+
+      if (!loadCont.activeSelf)
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+          loadCont.SetActive(true);
+          LoadScene();
+        }
+      
+      if (loadCont.activeSelf)
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+          foreach (GameObject bts in ButtonsLoad)
+          {
+            Destroy(bts);
+          }
+          ButtonsLoad = new List<GameObject>();
+          loadCont.SetActive(false);
+        }
+        
+      
       _drawColor = GameObject.Find("Picker").GetComponent<ColorPicker>().CurrentColor;
       if (state == 1)
         drawTrail();
@@ -219,14 +258,69 @@ namespace Leap.Unity.DetectionExamples {
       if (state == 11)
         deplacement();
 
+      if (state == 12)
+        SaveScene();
+
     }
     Vector3 tmp = new Vector3(0,0,0);
     Vector3 tmp2 = new Vector3(0,0,0);
     //Quaternion qtmp = new Quaternion();
     //Quaternion qtmp2 = new Quaternion();
+    void LoadScene()
+    {
+      ButtonsLoad = new List<GameObject>();
+      string LEVEL_PATH =Application.persistentDataPath;
+      Regex p = new Regex(@"\\[a-z]*\.json");
+      
+      foreach (string worldDir in Directory.GetFiles(LEVEL_PATH)) {
+        string s = p.Match(worldDir).Value;
+        s = s.Substring(1,s.Length - 6);
+        GameObject button = (GameObject) Instantiate(buttonprefab);
+        button.GetComponentInChildren<Text>().text = s;
+        button.GetComponent<Button>().onClick.AddListener(
+          () =>
+          {
+            Load(Application.persistentDataPath + "/" + s + ".json");
+            loadCont.SetActive(false);
+            foreach (GameObject bts in ButtonsLoad)
+            {
+              Destroy(bts);
+            }
+            ButtonsLoad = new List<GameObject>();
+          }
+          );
+        //button.GetComponent<>()
+        //button.transform.parent = loadTextObj.transform;
+        button.transform.SetParent(loadTextObj.transform, false);
+        ButtonsLoad.Add(button);
+      }
+      
+    }
 
+    void SaveScene()
+    {
+      if (Input.GetKeyDown(KeyCode.Return))
+      {
+        string path = Application.persistentDataPath + "/";
+        Save(path + saveTextObj.GetComponent<TMP_InputField>().text + ".json");
+          
+        saveTextObj.SetActive(false);
+        state = prevState;
 
+      }
 
+      if (Input.GetKeyDown(KeyCode.Escape))
+      {
+        state = prevState;
+        saveTextObj.SetActive(false);
+      }
+    }
+
+    public void HandleClick()
+    {
+      //scrollList.TryTransferItemToOtherShop (item);
+    }
+    
     private Rigidbody crc;
     void deplacement()
     {
@@ -302,13 +396,13 @@ namespace Leap.Unity.DetectionExamples {
     {
       return Mathf.Floor(num * precision + 0.5f) / precision;
     }
-    void Save()
+    void Save(string path)
     {
       JSONArray obj = new JSONArray();
       JSONArray listR = new JSONArray();
       JSONArray pos = new JSONArray();
       JSONArray typeO = new JSONArray();
-      List<Vector3> rings = GameObject.Find("line" + 0).GetComponent<SaveObjInfo>().coord;
+      List<Vector3> rings = null;
 
       GameObject[] objs ;
       objs = GameObject.FindGameObjectsWithTag("line");
@@ -427,7 +521,6 @@ namespace Leap.Unity.DetectionExamples {
       typeO.Add(obj);
 
       
-      string path = Application.persistentDataPath + "/objInfo.json";
       File.WriteAllText(path, typeO.ToString());
     }
     
@@ -441,13 +534,13 @@ namespace Leap.Unity.DetectionExamples {
       }
     }
     
-    void Load()
+    void Load(string path)
     {
       DestroyAll("line");
       DestroyAll("Cube");
       DestroyAll("Sphere");
       _line = 0;
-      string path = Application.persistentDataPath + "/objInfo.json";
+      //string path = Application.persistentDataPath + "/objInfo.json";
       string jsonString = File.ReadAllText(path);
       JSONArray obj = (JSONArray) JSON.Parse(jsonString);
       var drawState = _drawStates[1];
@@ -628,47 +721,6 @@ namespace Leap.Unity.DetectionExamples {
         }
       }    
     }
-/*    void pickColor (){
-      for (int i = 0; i < _pinchDetectors.Length; i++) {
-        var detector = _pinchDetectors[i];
-        var drawState = _drawStates[i];
-        _slider = GameObject.Find("BoxSlider");
-        float myx = 0;
-        float myy = 0;
-        float myx2 = 0;
-        float myy2 = 0;
-        float my2 = 0;
-        
-        if (detector.DidStartHold) {
-          if (detector == _pinchDetectors[1]){
-            myx = GameObject.Find("RightIndex").transform.position.x;
-            myy = GameObject.Find("RightIndex").transform.position.y;
-            myx2 = _slider.GetComponent<BoxSlider>().normalizedValueY;
-            myy2 = _slider.GetComponent<BoxSlider>().normalizedValue;
-          }
-          
-          if (detector == _pinchDetectors[0]){
-            myy = GameObject.Find("LeftIndex").transform.position.y;
-            my2 = GameObject.Find("Hue").GetComponent<Slider>().value;
-          }
-        }
-
-        if (detector.DidRelease) {
-        }
-
-        if (detector.IsHolding)
-        {
-          if (detector == _pinchDetectors[1]){
-            _slider.GetComponent<BoxSlider>().normalizedValueY = (myy2+(-(myy-GameObject.Find("RightIndex").transform.position.y) *5) + 1);
-            _slider.GetComponent<BoxSlider>().normalizedValue =  (((myx-GameObject.Find("RightIndex").transform.position.x) *5) + 0.5F);
-          }
-          
-          if (detector == _pinchDetectors[0]){
-            GameObject.Find("Hue").GetComponent<Slider>().value = (my2+((myy-GameObject.Find("LeftIndex").transform.position.y)*-5)+1);
-          }
-        }
-      }    
-    }*/
 
     double sqr(double val)
     {

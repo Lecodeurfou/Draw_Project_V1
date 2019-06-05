@@ -59,4 +59,5 @@ public class ActiveDrawingOn : MonoBehaviour
     public void movement (){
         obj.GetComponent<PinchDraw>().State = 11;
     }
+
 }
