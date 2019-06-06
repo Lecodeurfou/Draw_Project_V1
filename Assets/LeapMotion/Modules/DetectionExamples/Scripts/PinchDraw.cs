@@ -69,6 +69,7 @@ namespace Leap.Unity.DetectionExamples {
     public GameObject loadCont;
     private List<GameObject> ButtonsLoad;
     private List<GameObject> ButtonsDel;
+    private GameObject DJBiom;
 
     
     private float dist;
@@ -164,6 +165,7 @@ namespace Leap.Unity.DetectionExamples {
       loadCont = GameObject.FindWithTag("loadCont");
       loadDel = GameObject.FindWithTag("loadDel");
       loadCont.SetActive(false);
+      DJBiom = GameObject.FindWithTag("DungeonBiom");
       _drawStates = new DrawState[_pinchDetectors.Length];
       for (int i = 0; i < _pinchDetectors.Length; i++)
       {
@@ -219,6 +221,12 @@ namespace Leap.Unity.DetectionExamples {
     void Update()
     {
 
+      if (Input.GetKeyDown(KeyCode.F1))
+      {
+        DJBiom.SetActive(!DJBiom.activeSelf);
+      }
+
+      
       if (state != 12 && state != 13)
       {
         if (Input.GetKeyDown(KeyCode.S))

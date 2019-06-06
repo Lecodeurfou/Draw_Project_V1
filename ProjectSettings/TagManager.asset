@@ -22,6 +22,7 @@ TagManager:
   - loadText
   - loadCont
   - loadDel
+  - DungeonBiom
   layers:
   - Default
   - TransparentFX
