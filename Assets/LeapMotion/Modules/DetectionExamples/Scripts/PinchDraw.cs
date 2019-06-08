@@ -53,6 +53,9 @@ namespace Leap.Unity.DetectionExamples {
     public float curt;
     private int pHand = 0;
     bool deplaM = false;
+    float myx = 0;
+    float myy = 0;
+    float my2 = 0;
     bool deplaR = false;
     private GameObject pinchL;
     private GameObject pinchR;
@@ -494,6 +497,7 @@ namespace Leap.Unity.DetectionExamples {
           pos.Add(colorInfo[1]);
           pos.Add(colorInfo[2]);
           pos.Add(colorInfo[3]);
+          pos.Add(lineObj.GetComponent<SaveObjInfo>().trailSize);
           
           listR.Add(pos);
         }
@@ -629,9 +633,12 @@ namespace Leap.Unity.DetectionExamples {
         drawState.BeginNewLine();
         foreach (JSONArray t0 in t1)
         {
-          Vector3 val = new Vector3(t0[0],t0[1],t0[2]);
-          drawState.UpdateLine2(val);
           DrawColor = new Color(t0[3],t0[4], t0[5], t0[6]);
+          Vector3 val = new Vector3(t0[0],t0[1],t0[2]);
+          float prevSize = arcValueU.GetComponent<HoverItemDataSlider>().Value;
+          arcValueU.GetComponent<HoverItemDataSlider>().Value = t0[7];
+          drawState.UpdateLine2(val);
+          arcValueU.GetComponent<HoverItemDataSlider>().Value = prevSize;
         }
         drawState.FinishLine();
       }
@@ -758,29 +765,23 @@ namespace Leap.Unity.DetectionExamples {
         }
       }    
     }
-    
+
     void pickColor (){
       for (int i = 0; i < _pinchDetectors.Length; i++) {
         var detector = _pinchDetectors[i];
         var drawState = _drawStates[i];
         _slider = GameObject.Find("BoxSlider");
-        float myx = 0;
-        float myy = 0;
-        float myx2 = 0;
-        float myy2 = 0;
-        float my2 = 0;
+
         
         if (detector.DidStartHold) {
           if (detector == _pinchDetectors[1]){
-            myx = GameObject.Find("RightIndex").transform.position.x;
+            myx = RIX.transform.position.x;
             myy = GameObject.Find("RightIndex").transform.position.y;
-            myx2 = _slider.GetComponent<BoxSlider>().normalizedValueY;
-            myy2 = _slider.GetComponent<BoxSlider>().normalizedValue;
           }
           
           if (detector == _pinchDetectors[0]){
             myy = GameObject.Find("LeftIndex").transform.position.y;
-            my2 = GameObject.Find("Hue").GetComponent<Slider>().value;
+
           }
         }
 
@@ -790,12 +791,12 @@ namespace Leap.Unity.DetectionExamples {
         if (detector.IsHolding)
         {
           if (detector == _pinchDetectors[1]){
-            _slider.GetComponent<BoxSlider>().normalizedValueY = (myy2+(-(myy-GameObject.Find("RightIndex").transform.position.y) *5) + 1);
-            _slider.GetComponent<BoxSlider>().normalizedValue =  (((myx-GameObject.Find("RightIndex").transform.position.x) *5) + 0.5F);
+            _slider.GetComponent<BoxSlider>().normalizedValueY = (-(myy-GameObject.Find("RightIndex").transform.position.y)*5) + 0.5F;
+            _slider.GetComponent<BoxSlider>().normalizedValue =  ((myx-RIX.transform.position.x)*5) + 0.5F;
           }
           
           if (detector == _pinchDetectors[0]){
-            GameObject.Find("Hue").GetComponent<Slider>().value = (my2+((myy-GameObject.Find("LeftIndex").transform.position.y)*-5)+1);
+            GameObject.Find("Hue").GetComponent<Slider>().value = ((myy-GameObject.Find("LeftIndex").transform.position.y)*-5)+0.5F;
           }
         }
       }    
@@ -966,6 +967,7 @@ namespace Leap.Unity.DetectionExamples {
         //_parent.loadRing.Add(_line-1);
         currentObj.GetComponent<SaveObjInfo>().coord.Add(ringPosition);
         currentObj.GetComponent<SaveObjInfo>().line = _line-1;
+        currentObj.GetComponent<SaveObjInfo>().trailSize = arcValueU.GetComponent<HoverItemDataSlider>().Value;
 
         _rings++;
         //Debug.Log(arcValueU.GetComponent<HoverItemDataSlider>().Value*10); //Debug la valeur selectionné dans l'arc value

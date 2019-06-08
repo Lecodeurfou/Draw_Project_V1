@@ -6,6 +6,7 @@ public class SaveObjInfo : MonoBehaviour
 {
     public List<Vector3> coord;
     public int line;
+    public float trailSize;
 
     public Vector4 color;
     // Start is called before the first frame update
