@@ -52,16 +52,16 @@ namespace Leap.Unity.DetectionExamples {
     public float curd;
     public float curt;
     private int pHand = 0;
-    bool deplaM = false;
+    bool isMoving = false;
     float myx = 0;
     float myy = 0;
     float my2 = 0;
-    bool deplaR = false;
+    bool isTurning = false;
     private GameObject pinchL;
-    private GameObject pinchR;
+    private GameObject rightPinch;
     private GameObject cam;
-    float save = 0f;
-    float sss = 0;
+    float asPinchPosition = 0f;
+    float position = 0;
     private GameObject RIX;
     public List<Vector3> ringList;
     public List<int> loadRing;
@@ -188,7 +188,7 @@ namespace Leap.Unity.DetectionExamples {
       loadList = new List<List<Vector3>>();
       arcValueU = arcValue;
       arcValueU.GetComponent<HoverItemDataSlider>().Value = 0.1f;
-      pinchR = GameObject.FindWithTag("posIndR");
+      rightPinch = GameObject.FindWithTag("posIndR");
       pinchL = GameObject.FindWithTag("posIndL");
       cam = GameObject.FindWithTag("deplacement");
       RIX = GameObject.FindWithTag("riX");
@@ -394,7 +394,7 @@ namespace Leap.Unity.DetectionExamples {
       //scrollList.TryTransferItemToOtherShop (item);
     }
     
-    private Rigidbody crc;
+    private Rigidbody camShape;
     void deplacement()
     {
 
@@ -402,53 +402,50 @@ namespace Leap.Unity.DetectionExamples {
       {
         var detector = _pinchDetectors[i];
         var drawState = _drawStates[i];
-
-
         
-        
-        if (detector == _pinchDetectors[1] && !deplaR) 
+        if (detector == _pinchDetectors[1] && !isTurning) 
         {
           if (detector.DidStartHold)
           {
-            save = pinchR.transform.position.y;
-            crc = cam.GetComponent<Rigidbody>();
-            deplaM = true;
+            asPinchPosition = rightPinch.transform.position.y;
+            camShape = cam.GetComponent<Rigidbody>();
+            isMoving = true;
           }
 
           if (detector.IsHolding)
           {
-            sss = (save - pinchR.transform.position.y);
-            crc.velocity = crc.transform.forward * sss * -20;
+            position = (asPinchPosition - rightPinch.transform.position.y);
+            camShape.velocity = camShape.transform.forward * position * -20;
           }
 
           if (detector.DidRelease)
           {
-            deplaM = false;
-            crc.velocity = new Vector3(0,0,0);
+            isMoving = false;
+            camShape.velocity = new Vector3(0,0,0);
           }
         }
 
         
         
 
-        else if (detector == _pinchDetectors[0] && !deplaM)
+        else if (detector == _pinchDetectors[0] && !isMoving)
         {
 
           if (detector.DidStartHold)
           {
-            deplaR = true;
-            save = pinchL.transform.position.y;
-            crc = cam.GetComponent<Rigidbody>();
+            isTurning = true;
+            asPinchPosition = pinchL.transform.position.y;
+            camShape = cam.GetComponent<Rigidbody>();
           }
 
           if (detector.IsHolding)
           {
-            sss = save - pinchL.transform.position.y;
-            crc.MoveRotation(Quaternion.Euler(cam.transform.localRotation.x, cam.transform.eulerAngles.y + (sss * 20), cam.transform.localRotation.z));
+            position = asPinchPosition - pinchL.transform.position.y;
+            camShape.MoveRotation(Quaternion.Euler(cam.transform.localRotation.x, cam.transform.eulerAngles.y + (position * 20), cam.transform.localRotation.z));
           }
 
           if (detector.DidRelease)
-            deplaR = false;
+            isTurning = false;
         }
         
         
